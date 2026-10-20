@@ -11,14 +11,17 @@
     "build": "tsc -p tsconfig.json",
     "test": "tsc -p tsconfig.json && node --test dist/registry.test.js",
     "lint": "oxlint src",
-    "registry": "node dist/index.js"
+    "registry": "node dist/index.js",
+    "publish:interactive": "node scripts/publish-interactive.mjs"
   },
   "dependencies": {
     "@scure/base": "^2.4.0",
-    "nostr-tools": "^2.25.2"
+    "nostr-tools": "^2.25.2",
+    "ws": "^8.22.0"
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
+    "@types/ws": "^8.18.2",
     "oxlint": "^1.81.0",
     "typescript": "~6.0.2"
   }

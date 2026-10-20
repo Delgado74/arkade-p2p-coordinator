@@ -1,3 +1,5 @@
+// Installs `ws` as globalThis.WebSocket before nostr-tools/pool is evaluated.
+import "./websocket.js";
 import { finalizeEvent, type Event, type EventTemplate } from "nostr-tools/pure";
 import { SimplePool } from "nostr-tools/pool";
 import { pubkeyFromInput, secretKeyFromInput, type HexPubKey } from "./pubkey.js";
