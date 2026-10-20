@@ -1,0 +1,25 @@
+{
+  "name": "arkade-p2p-coordinator",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "CLI for a community coordinator to publish the solver registry (Nostr kind 38389) read by arkade-p2p-nostr clients.",
+  "bin": {
+    "arkade-p2p-coordinator": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "tsc -p tsconfig.json && node --test dist/registry.test.js",
+    "lint": "oxlint src",
+    "registry": "node dist/index.js"
+  },
+  "dependencies": {
+    "@scure/base": "^2.4.0",
+    "nostr-tools": "^2.25.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "oxlint": "^1.81.0",
+    "typescript": "~6.0.2"
+  }
+}

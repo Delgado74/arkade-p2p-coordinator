@@ -1,0 +1,5 @@
+# Solver pubkeys (npub or 64-hex), one per line.
+# Lines starting with # and inline # comments are ignored.
+npub1wr9hjdry05jnu7alfym5yv5ygpnkae0a7hxpv496vw8v4mrgddwsa6rq70
+# You can also paste hex keys:
+# 1b84f2c9b0dcb6a9c1e2f3a4b5c6d7e8f90123456789abcdef0123456789abcd
