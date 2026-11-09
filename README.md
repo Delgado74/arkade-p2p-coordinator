@@ -105,6 +105,51 @@ node dist/index.js publish --solver npub1... --community mi-comunidad --name "Mi
 - Anyone in the list has real spending authority over new escrows, so the list
   is a trust boundary. Publish mindfully.
 
+## Operación
+
+Rotación / revocación de un solver:
+
+1. Edita `solvers.txt` (quita la clave revocada o añade la nueva).
+2. Publica primero en `--dry-run` y revisa el `d`, el número de claves y la
+   firma.
+3. Publica el evento. Es reemplazable por `d`: los clientes se quedan con el
+   último.
+4. Avisa a los operadores; las operaciones **ya creadas** conservan el set de
+   solvers comprometido en su acuerdo. La rotación solo afecta a escrows nuevos.
+
+Servicio periódico (systemd timer):
+
+```ini
+# /etc/systemd/system/arkade-p2p-coordinator.service
+[Unit]
+Description=Publish Arkade P2P solver registry
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/arkade-p2p-coordinator
+ExecStart=/usr/bin/node dist/index.js publish --file solvers.txt --secret-file /etc/arkade-p2p-coordinator/coordinator.nsec
+```
+
+```ini
+# /etc/systemd/system/arkade-p2p-coordinator.timer
+[Unit]
+Description=Daily solver registry refresh
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+```
+
+Diagnóstico:
+
+- `--dry-run` imprime el evento firmado sin publicar.
+- Si un relay falla, el resto sigue; revisa la lista de aceptados en la salida.
+- Un `d` distinto crea otra lista: no cambies `--community` sin avisar a los
+  clientes, que filtran por `d = "solvers"` o `"solvers:<id>"`.
+
 ## Keeping in sync with the client
 
 The client parses this event in `src/lib/protocol.ts` (`SOLVERS_KIND`,
